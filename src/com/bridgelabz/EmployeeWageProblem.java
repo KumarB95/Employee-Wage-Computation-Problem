@@ -7,6 +7,7 @@ public class EmployeeWageProblem {
         System.out.println("Welcome to Employee wage Problem");
         Random random = new Random();
         int empCheck,IS_PRESENT=1,IS_ABSENT=0,IS_PART_TIME=2,WAGE_PER_HOUR=20,FULL_DAY_HOUR=8,PART_TIME_HOUR=4,WagePerDay,wageForMonth=0;
+        int hourCounter=0,dayCounter=0,DAYS_IN_MONTH=20;
 
 
         /*    if (empCheck == IS_PRESENT){
@@ -17,27 +18,33 @@ public class EmployeeWageProblem {
             else{
                 System.out.println("Employee is absent wage for the day is Rs. 0");}
        */
-        for (int i=1; i<=20;i++){
-            empCheck=random.nextInt(3);
-            switch (empCheck) {
-                case 1:
-                    WagePerDay = FULL_DAY_HOUR * WAGE_PER_HOUR;
-                   // System.out.println("Employee is Present and Wages per day : " + WagePerDay + " Rs.");
-                    break;
-                case 2:
-                    WagePerDay = PART_TIME_HOUR * WAGE_PER_HOUR;
-                   // System.out.println("Employee is Present for Half day and Wages per day : " + WagePerDay + " Rs.");
-                    break;
-                case 0:
-                    WagePerDay=0;
-                   // System.out.println("Employee is absent wage for the day is Rs. 0");
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + empCheck);
-            }
-            //System.out.println("Day : "+i+" ; Wage of the day : "+WagePerDay+" ; Wage till now : "+(wageForMonth+=WagePerDay));
-            wageForMonth+=WagePerDay;
+        while (hourCounter<101 && dayCounter<DAYS_IN_MONTH) {
+            //for (int i = 1; i <= DAYS_IN_MONTH; i++) {
+                empCheck = random.nextInt(3);
+                switch (empCheck) {
+                    case 1:
+                        WagePerDay = FULL_DAY_HOUR * WAGE_PER_HOUR;
+                        hourCounter += FULL_DAY_HOUR;
+                        // System.out.println("Employee is Present and Wages per day : " + WagePerDay + " Rs.");
+                        break;
+                    case 2:
+                        WagePerDay = PART_TIME_HOUR * WAGE_PER_HOUR;
+                        hourCounter += PART_TIME_HOUR;
+                        // System.out.println("Employee is Present for Half day and Wages per day : " + WagePerDay + " Rs.");
+                        break;
+                    case 0:
+                        WagePerDay = 0;
+                        // System.out.println("Employee is absent wage for the day is Rs. 0");
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + empCheck);
+                }
+                //System.out.println("Day : "+i+" ; Wage of the day : "+WagePerDay+" ; Wage till now : "+(wageForMonth+=WagePerDay));
+                wageForMonth += WagePerDay;
+                dayCounter++;
+                //System.out.println("Days Counter :" +dayCounter+"; Hour Counter : "+hourCounter);
+            //}
         }
-        System.out.println("Wage for Month (20 days) : "+wageForMonth);
+        System.out.println("Total Employee Wage : "+wageForMonth);
     }
 }
