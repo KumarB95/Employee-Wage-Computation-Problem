@@ -3,36 +3,53 @@ package com.bridgelabz;
 import java.util.Random;
 
 public class EmployeeWageProblem {
-    public static int empCheck,WAGE_PER_HOUR=20,FULL_DAY_HOUR=8,PART_TIME_HOUR=4,WagePerDay,wageForMonth=0;
-    public static int hourCounter=0,dayCounter=0,DAYS_IN_MONTH=20;
+    public static final int PART_TIME_HOUR=2;
+    public static final int FULL_DAY_HOUR=1;
+
+    private final String company;
+    private final int WAGE_PER_HOUR;
+    private final int DAYS_IN_MONTH;
+    private final int maxHourPerMonth;
+    private int wageForMonth;
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee wage Problem");
-        empWage("Dmart",20,22,100);
-        empWage("Relience",22,24,110);
+        EmployeeWageProblem DMart=new EmployeeWageProblem("DMart",20,22,100);
+        EmployeeWageProblem Relience=new EmployeeWageProblem("Relience",22,24,110);
+        DMart.empWage();
+        System.out.println(DMart);
+        Relience.empWage();
+        System.out.println(Relience);
+
     }
-    public static void empWage(String company,int WAGE_PER_HOUR,int DAYS_IN_MONTH,int maxHourPerMonth){
+    public EmployeeWageProblem(String company,int WAGE_PER_HOUR,int DAYS_IN_MONTH,int maxHourPerMonth){
+        this.company=company;
+        this.WAGE_PER_HOUR=WAGE_PER_HOUR;
+        this.DAYS_IN_MONTH=DAYS_IN_MONTH;
+        this.maxHourPerMonth=maxHourPerMonth;
+    }
+    public void empWage(){
         Random random = new Random();
-        while (hourCounter<(maxHourPerMonth+1) && dayCounter<DAYS_IN_MONTH) {
-            empCheck = random.nextInt(3);
+        int empHrs=0,dayCounter=0,totalEmpHrs=0;
+        while (empHrs<=maxHourPerMonth && dayCounter<DAYS_IN_MONTH) {
+            dayCounter++;
+            int empCheck = random.nextInt(3);
             switch (empCheck) {
                 case 1:
-                    WagePerDay = FULL_DAY_HOUR * WAGE_PER_HOUR;
-                    hourCounter += FULL_DAY_HOUR;
+                    empHrs=8;
                     break;
                 case 2:
-                    WagePerDay = PART_TIME_HOUR * WAGE_PER_HOUR;
-                    hourCounter += PART_TIME_HOUR;
-                    break;
-                case 0:
-                    WagePerDay = 0;
+                    empHrs=4;
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + empCheck);
+                    empHrs=0;
             }
-            wageForMonth += WagePerDay;
-            dayCounter++;
+            totalEmpHrs+=empHrs;
         }
-        System.out.println("Total Employee Wage for company "+company+" is : "+wageForMonth);
+        wageForMonth=totalEmpHrs*WAGE_PER_HOUR;
+    }
+    @Override
+    public String toString(){
+        return "Empolyee wages for "+company+" is :"+wageForMonth;
     }
 }
