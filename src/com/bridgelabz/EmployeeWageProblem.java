@@ -8,11 +8,12 @@ public class EmployeeWageProblem {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee wage Problem");
-        empWage();
+        empWage("Dmart",20,22,100);
+        empWage("Relience",22,24,110);
     }
-    public static void empWage(){
+    public static void empWage(String company,int WAGE_PER_HOUR,int DAYS_IN_MONTH,int maxHourPerMonth){
         Random random = new Random();
-        while (hourCounter<101 && dayCounter<DAYS_IN_MONTH) {
+        while (hourCounter<(maxHourPerMonth+1) && dayCounter<DAYS_IN_MONTH) {
             empCheck = random.nextInt(3);
             switch (empCheck) {
                 case 1:
@@ -32,6 +33,6 @@ public class EmployeeWageProblem {
             wageForMonth += WagePerDay;
             dayCounter++;
         }
-        System.out.println("Total Employee Wage : "+wageForMonth);
+        System.out.println("Total Employee Wage for company "+company+" is : "+wageForMonth);
     }
 }
