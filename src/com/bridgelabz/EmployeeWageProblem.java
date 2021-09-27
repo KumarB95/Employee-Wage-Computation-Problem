@@ -3,35 +3,28 @@ package com.bridgelabz;
 import java.util.Random;
 
 public class EmployeeWageProblem {
-    public static final int PART_TIME_HOUR=2;
-    public static final int FULL_DAY_HOUR=1;
+    private int numOfCompany=0;
+    private CompanyEmpWage[] companyEmpWageArray;
 
-    private final String company;
-    private final int WAGE_PER_HOUR;
-    private final int DAYS_IN_MONTH;
-    private final int maxHourPerMonth;
-    private int wageForMonth;
-
-    public static void main(String[] args) {
-        System.out.println("Welcome to Employee wage Problem");
-        EmployeeWageProblem DMart=new EmployeeWageProblem("DMart",20,22,100);
-        EmployeeWageProblem Relience=new EmployeeWageProblem("Relience",22,24,110);
-        DMart.empWage();
-        System.out.println(DMart);
-        Relience.empWage();
-        System.out.println(Relience);
-
+    public EmployeeWageProblem(){
+        companyEmpWageArray=new CompanyEmpWage[5];
     }
-    public EmployeeWageProblem(String company,int WAGE_PER_HOUR,int DAYS_IN_MONTH,int maxHourPerMonth){
-        this.company=company;
-        this.WAGE_PER_HOUR=WAGE_PER_HOUR;
-        this.DAYS_IN_MONTH=DAYS_IN_MONTH;
-        this.maxHourPerMonth=maxHourPerMonth;
+
+    private void addCompanyEmpWage(String company,int WAGE_PER_HOUR,int DAYS_IN_MONTH,int maxHourPerMonth){
+        companyEmpWageArray[numOfCompany]=new CompanyEmpWage(company,WAGE_PER_HOUR,DAYS_IN_MONTH,maxHourPerMonth);
+        numOfCompany++;
     }
-    public void empWage(){
+    private void computeEmpWage(){
+        for (int i=0;i<numOfCompany;i++){
+            companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+            System.out.println(companyEmpWageArray[i]);
+        }
+    }
+
+    public int computeEmpWage(CompanyEmpWage companyEmpWage){
         Random random = new Random();
         int empHrs=0,dayCounter=0,totalEmpHrs=0;
-        while (empHrs<=maxHourPerMonth && dayCounter<DAYS_IN_MONTH) {
+        while (empHrs<=companyEmpWage.maxHourPerMonth && dayCounter<companyEmpWage.DAYS_IN_MONTH) {
             dayCounter++;
             int empCheck = random.nextInt(3);
             switch (empCheck) {
@@ -46,10 +39,16 @@ public class EmployeeWageProblem {
             }
             totalEmpHrs+=empHrs;
         }
-        wageForMonth=totalEmpHrs*WAGE_PER_HOUR;
+        return totalEmpHrs * companyEmpWage.WAGE_PER_HOUR;
     }
-    @Override
-    public String toString(){
-        return "Empolyee wages for "+company+" is :"+wageForMonth;
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to Employee wage Problem");
+        EmployeeWageProblem empWageBuilder=new EmployeeWageProblem();
+        empWageBuilder.addCompanyEmpWage("DMart",20,22,100);
+        empWageBuilder.addCompanyEmpWage("Relience",22,24,110);
+        empWageBuilder.computeEmpWage();
+
     }
+
 }
