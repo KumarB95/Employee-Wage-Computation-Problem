@@ -1,25 +1,30 @@
 package com.bridgelabz;
 
-class CompanyEmpWage {
+class EmployeeWage {
+    //variables
+    public String companyName;
+    public int max_working_hrs;
+    public int days_in_month;
+    public int wage_per_hr;
+    public int totalWage;
 
-    public final String company;
-    public final int WAGE_PER_HOUR;
-    public final int DAYS_IN_MONTH;
-    public int maxHourPerMonth;
-    public int wageForMonth;
+    public EmployeeWage(String companyName, int max_working_hrs, int days_in_month, int wage_per_hr) {
+        // Assigning/setting parameters to varaible
+        this.companyName = companyName;
+        this.max_working_hrs = max_working_hrs;
+        this.days_in_month = days_in_month;
+        this.wage_per_hr = wage_per_hr;
+        totalWage = 0;
+    }
 
-    public CompanyEmpWage(String company,int WAGE_PER_HOUR,int DAYS_IN_MONTH,int maxHourPerMonth){
-        this.company=company;
-        this.WAGE_PER_HOUR=WAGE_PER_HOUR;
-        this.DAYS_IN_MONTH=DAYS_IN_MONTH;
-        this.maxHourPerMonth=maxHourPerMonth;
+
+    public void setTotalWage(int totalWage) {
+        this.totalWage = totalWage;
     }
-    public void setTotalEmpWage(int wageForMonth){
-        this.wageForMonth=wageForMonth;
-    }
+
     @Override
-    public String toString(){
-        return "Empolyee wages for "+company+" is :"+wageForMonth;
+    public String toString() {
+        return "Monthly wage for " + companyName + " is " + totalWage;
     }
 }
 
