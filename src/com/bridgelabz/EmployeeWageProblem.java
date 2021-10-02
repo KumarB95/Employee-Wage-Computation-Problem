@@ -1,5 +1,7 @@
 package com.bridgelabz;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 class EmployeeWageBuilder implements EmpWageInterface {
@@ -10,28 +12,32 @@ class EmployeeWageBuilder implements EmpWageInterface {
 
     private int numOfCompany = 0;
 
-    // Defining and initialising Array
-    private EmployeeWage[] employeeWageArray;
+    // Defining and initialising ArrayList
+    private List<EmployeeWage> employeeWageArray;
 
     public EmployeeWageBuilder() {
-        employeeWageArray = new EmployeeWage[10];
+        employeeWageArray = new ArrayList<EmployeeWage>();
     }
 
     @Override
     public void addCompanyWage(String companyName, int max_working_hrs, int days_in_month, int wage_per_hr) {
-        employeeWageArray[numOfCompany] = new EmployeeWage(companyName, max_working_hrs, days_in_month, wage_per_hr);
-        numOfCompany++;
+        //employeeWageArray[numOfCompany] = new EmployeeWage(companyName, max_working_hrs, days_in_month, wage_per_hr);
+        EmployeeWage employeeWage = new EmployeeWage(companyName, max_working_hrs, days_in_month, wage_per_hr);
+        //numOfCompany++;
+        employeeWageArray.add(employeeWage);
 
     }
 
     @Override
     public void computeEmpWage() {
-        for (int i = 0; i < numOfCompany; i++) {
-            employeeWageArray[i].setTotalWage(this.computeEmpWage(employeeWageArray[i]));
-            System.out.println(employeeWageArray[i]);
+        for (int i = 0; i < employeeWageArray.size(); i++) {
+            //employeeWageArray[i].setTotalWage(this.computeEmpWage(employeeWageArray[i]));
+            //System.out.println(employeeWageArray[i]);
+            EmployeeWage employeeWage = employeeWageArray.get(i);
+            employeeWage.setTotalWage(computeEmpWage(employeeWage));
+            System.out.println(employeeWage);
         }
     }
-
     private int computeEmpWage(EmployeeWage employeeWage) {
         int working_hr = 0;
         int total_working_hr = 0;
@@ -67,8 +73,8 @@ class EmployeeWageBuilder implements EmpWageInterface {
         // creating object
         EmployeeWageBuilder employeeWageBuilder = new EmployeeWageBuilder();
         // calling from main
-        employeeWageBuilder.addCompanyWage("DMart", 100, 22, 100);
-        employeeWageBuilder.addCompanyWage("Relience", 110, 22, 110);
+        employeeWageBuilder.addCompanyWage("DMart", 100, 20, 100);
+        employeeWageBuilder.addCompanyWage("Reliance", 150, 25, 110);
         employeeWageBuilder.computeEmpWage();
     }
 }
