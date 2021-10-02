@@ -1,8 +1,6 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 class EmployeeWageBuilder implements EmpWageInterface {
     //constants
@@ -12,11 +10,17 @@ class EmployeeWageBuilder implements EmpWageInterface {
 
     private int numOfCompany = 0;
 
-    // Defining and initialising ArrayList
+    // Defining and initialising ArrayList and HashMap
     private List<EmployeeWage> employeeWageArray;
+    private Map<String, EmployeeWage> map;
 
     public EmployeeWageBuilder() {
         employeeWageArray = new ArrayList<EmployeeWage>();
+        map = new HashMap<String, EmployeeWage>();
+    }
+
+    private int getTotalWage(String companyName) {
+        return map.get(companyName).totalWage;
     }
 
     @Override
@@ -36,8 +40,10 @@ class EmployeeWageBuilder implements EmpWageInterface {
             EmployeeWage employeeWage = employeeWageArray.get(i);
             employeeWage.setTotalWage(computeEmpWage(employeeWage));
             System.out.println(employeeWage);
+            System.out.println(this.map);
         }
     }
+
     private int computeEmpWage(EmployeeWage employeeWage) {
         int working_hr = 0;
         int total_working_hr = 0;
@@ -66,17 +72,18 @@ class EmployeeWageBuilder implements EmpWageInterface {
             System.out.println("Day " + day + " wage is " + daily_wage_array[j]);
             monthly_total_wage = monthly_total_wage + daily_wage_array[j];
         }
-
+        map.put(employeeWage.getcompanyName(), employeeWage);
         return monthly_total_wage;
     }
 
     public static void main(String[] args) {
         // creating object
         EmployeeWageBuilder employeeWageBuilder = new EmployeeWageBuilder();
-        // calling from main
+        // calling the objects
         employeeWageBuilder.addCompanyWage("DMart", 100, 20, 100);
         employeeWageBuilder.addCompanyWage("Reliance", 150, 25, 110);
         employeeWageBuilder.computeEmpWage();
+        System.out.println("Total employee wage for DMart " + employeeWageBuilder.getTotalWage("DMart"));
     }
 }
 

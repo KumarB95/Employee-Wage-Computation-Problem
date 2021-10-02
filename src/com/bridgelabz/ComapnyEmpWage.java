@@ -26,5 +26,10 @@ class EmployeeWage {
     public String toString() {
         return "Monthly wage for " + companyName + " is " + totalWage;
     }
+
+    public String getcompanyName() {
+        return companyName;
+    }
+
 }
 
