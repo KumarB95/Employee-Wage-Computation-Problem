@@ -67,8 +67,8 @@ class EmployeeWageBuilder implements EmpWageInterface {
         // creating object
         EmployeeWageBuilder employeeWageBuilder = new EmployeeWageBuilder();
         // calling from main
-        employeeWageBuilder.addCompanyWage("Jio", 100, 20, 100);
-        employeeWageBuilder.addCompanyWage("Airtel", 150, 25, 110);
+        employeeWageBuilder.addCompanyWage("DMart", 100, 22, 100);
+        employeeWageBuilder.addCompanyWage("Relience", 110, 22, 110);
         employeeWageBuilder.computeEmpWage();
     }
 }
